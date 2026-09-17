@@ -8,7 +8,7 @@
   :root{
     --ink:#161d26; --paper:#f4f6f8; --card:#fff; --line:#dce2e8;
     --navy:#132a45; --navy2:#1d3f63; --steel:#2c6ba0; --sky:#3f8ec8; --red:#c23b34; --red-soft:#fbe6e4; --amber:#d08a1e;
-    --slate:#54636f; --muted:#7c8894; --good:#1f8a5b;
+    --slate:#54636f; --muted:#7c8894; --good:#1f8a5b; --good-soft:#e3f3ea; --amber-soft:#fbf0d8;
     --radius:14px; --shadow:0 1px 2px rgba(22,29,38,.06),0 8px 28px rgba(22,29,38,.07);
   }
   *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -58,9 +58,20 @@
   .say{border-left:3px solid var(--red);background:var(--red-soft);padding:12px 14px;border-radius:0 8px 8px 0;font-size:.95rem;color:#8a2b26;font-style:italic}
   ul.points{margin:10px 0 0;padding-left:18px} ul.points li{margin-bottom:6px;color:var(--ink);font-size:.93rem} ul.points li b{color:var(--navy)}
   table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:.9rem;box-shadow:var(--shadow)}
-  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)} th{background:#e8eef3;color:var(--navy);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top} th{background:#e8eef3;color:var(--navy);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase}
   tr:last-child td{border-bottom:none}
   .note{font-size:.86rem;color:var(--muted);background:#eef2f5;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .badge{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .b-live{background:var(--good-soft);color:var(--good);border:1px solid #b7e0c7}
+  .b-road{background:var(--amber-soft);color:#8a5d0f;border:1px solid #ecd39a}
+  .fb{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:start}
+  .fb .n{width:30px;height:30px;border-radius:8px;background:var(--steel);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.9rem}
+  .fb .q{color:var(--slate);font-size:.9rem;font-style:italic;margin:0 0 3px}
+  p.a{color:var(--ink);font-size:.95rem;margin:0}
+  .fb .row{display:contents}
+  .fbcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px}
+  .fbcard .hd{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .fbcard .hd .n{flex:0 0 30px} .fbcard .hd b{color:var(--navy);font-size:1rem}
   footer{background:var(--navy);color:#c5d5e2;padding:26px 0;font-size:.85rem}
 </style>
 </head>
@@ -70,7 +81,7 @@
   <div class="wrap">
     <span class="eyebrow">🛰️ SaaScend · Sales + Service Cloud Demo</span>
     <h1>ModUCom — Sales + Service Cloud Demo Guide</h1>
-    <p class="sub">A guided walkthrough of the personalised Salesforce demo — built to pull ModUCom's sales pipeline, customer history, and support tickets out of Excel, SharePoint and Jira into one system your whole team can see.</p>
+    <p class="sub">A guided runbook for the personalised Salesforce demo — built to pull ModUCom's sales pipeline, customer history, and support tickets out of Excel, SharePoint and Jira into one system your whole team can see. Updated to reflect Rose's walkthrough feedback.</p>
     <div class="meta">
       <span class="chip"><b>Org:</b> connect-momentum-7281 (demo)</span>
       <span class="chip"><b>For:</b> Max Machuta (ModUCom) · Rose Benensohn (AE)</span>
@@ -79,11 +90,12 @@
   </div>
 </header>
 
+<!-- LOGIN -->
 <section>
   <div class="wrap">
     <p class="kicker">Start here</p>
     <h2 class="title">Log in &amp; get oriented</h2>
-    <p class="lead">Open the demo org in a clean browser window. It's seeded with a real public-safety dispatch book — county &amp; fire-authority accounts, a live opportunity pipeline, and a support-ticket queue. Sales and Service, side by side, on the same records.</p>
+    <p class="lead">Open the demo org in a clean browser window. It's seeded with a real public-safety dispatch book — county &amp; fire-authority accounts, a live opportunity pipeline, a support-ticket queue with SLA milestones, installed-system records, and activity history. Sales and Service, side by side, on the same records.</p>
     <div class="login" style="margin-top:18px">
       <div class="l">
         <h3>🔑 Demo login</h3>
@@ -96,9 +108,9 @@
         <h3>First 60 seconds</h3>
         <ol>
           <li>Log in — you land on the <b>Sales</b> app home as Rose.</li>
-          <li>Open <b>Accounts</b> → a dispatch authority → see contacts, deals &amp; cases in one place.</li>
-          <li>Open <b>Opportunities</b> → a deal → step it along the pipeline.</li>
-          <li>Open the <b>Cases</b> tab → the support-ticket queue.</li>
+          <li>Open <b>Dashboards → ModUCom Operations Hub</b> — the leadership view in one screen.</li>
+          <li>Open <b>Accounts</b> → a dispatch authority → contacts, deals, cases &amp; installed systems.</li>
+          <li>Open the <b>Cases</b> tab → the <b>Open Cases</b> list → the 911 ALI ticket.</li>
         </ol>
         <p class="note" style="margin-top:12px">Demo login is Rose's (the AE walking the prospect through it).</p>
       </div>
@@ -106,53 +118,87 @@
   </div>
 </section>
 
+<!-- FEEDBACK RESPONSE -->
 <section class="alt">
   <div class="wrap">
-    <p class="kicker">Agenda</p>
-    <h2 class="title">The 5-minute demo flow</h2>
-    <div class="agenda" style="margin-top:18px">
-      <a href="#s1"><span class="t">One customer, one record — the account 360</span><span class="d">Contacts · deals · cases</span></a>
-      <a href="#s2"><span class="t">The sales pipeline you've never had</span><span class="d">Quote-to-close deals</span></a>
-      <a href="#s3"><span class="t">A real ticketing system for support</span><span class="d">Case queue</span></a>
-      <a href="#s4"><span class="t">Where this goes — your tailored build</span><span class="d">Fields · dashboards · ROI</span></a>
+    <p class="kicker">Since your walkthrough</p>
+    <h2 class="title">What changed after Rose's feedback</h2>
+    <p class="lead">Every point from the walkthrough has been addressed in the org. Grounded in the real, standard objects — no manufactured pains, no fictional custom objects.</p>
+    <div style="margin-top:18px">
+      <div class="fbcard"><div class="hd"><span class="n">1</span><b>Reports &amp; the Operations Hub dashboard</b> <span class="badge b-live">Built</span></div>
+        <p class="a">6 reports now live in the <b>ModUCom Operations</b> folder, assembled into the <b>ModUCom Operations Hub</b> dashboard (pipeline, forecast, open cases by account/priority/status, installed systems). Dashboards tab → ModUCom Operations Hub.</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">2</span><b>Activity history &amp; follow-ups</b> <span class="badge b-live">Built</span></div>
+        <p class="a">Seeded 5 completed activities and 3 upcoming follow-up tasks across leads, the Kent County account, the expansion opportunity and the 911 case — so the "who-talked-to-whom / when to follow up" workflow demos end-to-end.</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">3</span><b>Service → Sales handoff</b> <span class="badge b-road">Manual path today</span></div>
+        <p class="a">The click path is documented in Step 5 below (a hardware-refresh case → its account → a new upgrade Opportunity). The <em>automated</em> version is a next-phase build — flagged honestly.</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">4</span><b>End-to-end click path &amp; the six automations</b> <span class="badge b-live">Documented</span></div>
+        <p class="a">Full demo click path and an honest live-vs-roadmap breakdown of the six automations are in the "Run of show" and "Automations" sections below.</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">5</span><b>Lead Path — Guidance for Success &amp; key fields</b> <span class="badge b-live">Built</span></div>
+        <p class="a">The <b>ModUCom Lead Path</b> now carries per-stage guidance and key fields (Open → Contacted → Qualified/Convert → Unqualified). All four seeded leads are on it.</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">6</span><b>Case list — Priority + Account, Open Cases view</b> <span class="badge b-live">Built</span></div>
+        <p class="a">New <b>Open Cases</b> list view with Case #, Priority, Account Name, Contact and Status — filtered to open cases (no more "Recently Viewed").</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">7</span><b>911 case — contact, troubleshooting activity &amp; SLA milestones</b> <span class="badge b-live">Built</span></div>
+        <p class="a">Case 00001038 now has a Contact (Dana Whitfield), a completed troubleshooting activity + an open follow-up, and the SLA clock reset so <b>First Response</b> and <b>Resolution</b> show a live countdown instead of 00:00. (See the note in Step 4 — the countdown is time-relative.)</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">8</span><b>Installed systems &amp; upgrade visibility</b> <span class="badge b-live">Built</span></div>
+        <p class="a">Installed NG911 systems are now <b>Assets</b> on each account (with install date, status and price). End-of-life units are flagged <b>Obsolete</b> — the proactive-upgrade signal. The Assets list is on the Account page, including Kent County.</p></div>
+      <div class="fbcard"><div class="hd"><span class="n">9</span><b>Quoting language reframed</b> <span class="badge b-live">Fixed</span></div>
+        <p class="a">Removed the "manual Excel exercise — the quoting pain point" wording from the Kent County opportunity. The Next Step now reads as a neutral, factual step. We don't manufacture a pain Travis didn't describe.</p></div>
     </div>
   </div>
 </section>
 
+<!-- AGENDA -->
 <section>
+  <div class="wrap">
+    <p class="kicker">Run of show</p>
+    <h2 class="title">The demo flow</h2>
+    <div class="agenda" style="margin-top:18px">
+      <a href="#s1"><span class="t">Leadership dashboard — the whole business on one screen</span><span class="d">Operations Hub</span></a>
+      <a href="#s2"><span class="t">One customer, one record — the account 360</span><span class="d">Contacts · deals · cases · assets</span></a>
+      <a href="#s3"><span class="t">Pipeline &amp; activity — deals you can actually see</span><span class="d">Path · follow-ups</span></a>
+      <a href="#s4"><span class="t">Service — the ticket queue &amp; the 911 SLA case</span><span class="d">Open Cases · milestones</span></a>
+      <a href="#s5"><span class="t">Service → Sales — turning an upgrade into a deal</span><span class="d">Handoff click path</span></a>
+      <a href="#s6"><span class="t">Leads — guided qualification</span><span class="d">Lead Path guidance</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'RE SEEING -->
+<section class="alt">
   <div class="wrap">
     <p class="kicker">What you're seeing</p>
     <h2 class="title">Sales &amp; Service, on one platform</h2>
-    <p class="lead">Everything that's scattered across spreadsheets, SharePoint and Jira today, unified — with your real dispatch customers seeded in so the story is concrete.</p>
+    <p class="lead">Everything scattered across spreadsheets, SharePoint and Jira today, unified — with your real dispatch customers seeded in so the story is concrete.</p>
     <div class="grid g4" style="margin-top:18px">
-      <div class="card"><div class="ico">🏛️</div><h3>Customer 360</h3><p>Every dispatch authority with its contacts, deals and open tickets on one screen.</p></div>
-      <div class="card"><div class="ico">📈</div><h3>Sales pipeline</h3><p>Deals tracked from prospect to closed-won — ~$611K open across the funnel.</p></div>
-      <div class="card"><div class="ico">🎧</div><h3>Ticketing / Cases</h3><p>Support requests logged, prioritised and tracked — the ticketing system you asked for.</p></div>
-      <div class="card"><div class="ico">👥</div><h3>Shared visibility</h3><p>Your 3 sales-techs see the same customer history — no more personal spreadsheets.</p></div>
+      <div class="card"><div class="ico">🏛️</div><h3>Customer 360</h3><p>Every dispatch authority with its contacts, deals, tickets and installed systems on one screen.</p></div>
+      <div class="card"><div class="ico">📈</div><h3>Pipeline &amp; forecast</h3><p>Deals tracked prospect → closed-won — ~$611K open — rolled up into a live leadership dashboard.</p></div>
+      <div class="card"><div class="ico">🎧</div><h3>Ticketing &amp; SLA</h3><p>Support requests logged, prioritised, and governed by First-Response &amp; Resolution milestones.</p></div>
+      <div class="card"><div class="ico">🛰️</div><h3>Installed base</h3><p>What's deployed at each customer, and which units are due for a refresh.</p></div>
     </div>
   </div>
 </section>
 
-<!-- STEP 1 -->
-<section class="alt">
+<!-- STEP 1 — DASHBOARD -->
+<section>
   <div class="wrap">
     <div class="step" id="s1">
-      <div class="step-h"><div class="step-num">1</div><div><h3>One customer, one record — the account 360</h3><div class="sh-sub">Accounts → a dispatch authority → Related</div></div></div>
-      <img class="shot" src="screenshots/account-360.png" alt="Kent County Central Dispatch Authority account showing contacts, opportunities and cases in one place">
+      <div class="step-h"><div class="step-num">1</div><div><h3>Leadership dashboard — the whole business on one screen</h3><div class="sh-sub">Dashboards → ModUCom Operations Hub</div></div></div>
+      <img class="shot" src="screenshots/dashboard.png" alt="ModUCom Operations Hub dashboard: total open pipeline $611K, pipeline by stage, forecast by close month, open cases by account, priority and status">
       <div class="step-cols">
         <div class="col">
           <h4>Click path</h4>
-          <div class="clickpath">Accounts → <b>Kent County Central Dispatch Authority</b> → <b>Related</b><br>→ Contacts · Opportunities · Cases</div>
+          <div class="clickpath">Dashboards → <b>ModUCom Operations Hub</b><br>→ Refresh (top-right) for live numbers</div>
           <h4 style="margin-top:16px">Say this</h4>
-          <p class="say">"Today, what you know about Kent County is split across Excel, a network folder, and someone's inbox. Here it's one record — every contact, every deal, and every open support ticket in one place, and your whole team sees the same thing."</p>
+          <p class="say">"This is the view your leadership never had. Pipeline, forecast, and the entire support picture — open cases by customer, by priority, by status — plus your installed base, all in one screen that refreshes on demand."</p>
         </div>
         <div class="col">
           <h4>Point out</h4>
           <ul class="points">
-            <li><b>Contacts</b> — the operations manager, the executive director, with roles and direct lines.</li>
-            <li><b>Opportunities</b> — the active deals for this authority (e.g. the $240K dispatch-position expansion).</li>
-            <li><b>Cases</b> — their open support tickets, right alongside the sales relationship.</li>
-            <li>This is the "centralize everything" outcome — no more hunting across systems.</li>
+            <li><b>Total Open Pipeline — $611K</b>, and the same deals broken out by stage.</li>
+            <li><b>Forecast by close month</b> — what's landing and when.</li>
+            <li><b>Open Cases by Account / Priority / Status</b> — the support half, live.</li>
+            <li><b>Installed Systems by Status</b> — Installed vs. Obsolete (the upgrade pipeline).</li>
+            <li>All six tiles are real reports in the <b>ModUCom Operations</b> folder you can open and drill into.</li>
           </ul>
         </div>
       </div>
@@ -160,53 +206,27 @@
   </div>
 </section>
 
-<!-- STEP 2 -->
-<section>
-  <div class="wrap">
-    <div class="step" id="s2">
-      <div class="step-h"><div class="step-num">2</div><div><h3>The sales pipeline you've never had</h3><div class="sh-sub">Opportunities → a deal → the pipeline path</div></div></div>
-      <img class="shot" src="screenshots/opportunity.png" alt="Kent County Dispatch Position Expansion opportunity, $240,000, on the sales pipeline path">
-      <div class="step-cols">
-        <div class="col">
-          <h4>Click path</h4>
-          <div class="clickpath">Opportunities → <b>Kent County – Dispatch Position Expansion</b><br>→ the pipeline path across the top</div>
-          <h4 style="margin-top:16px">Say this</h4>
-          <p class="say">"Right now a quote goes from a conversation to a custom proposal to a phone close with no visibility in between. Here every deal is on a pipeline — prospect, qualification, proposal, negotiation, won — so you and the team always know where each opportunity stands."</p>
-        </div>
-        <div class="col">
-          <h4>Point out</h4>
-          <ul class="points">
-            <li><b>Pipeline stages</b> — a visual path from prospect to closed-won.</li>
-            <li><b>~$611K open pipeline</b> across 6 deals — hardware refreshes, console replacements, renewals.</li>
-            <li><b>Forecast at a glance</b> — amounts and stages roll up so leadership can see the quarter.</li>
-            <li>Replaces the "it's all in Travis's head / a spreadsheet" quoting process.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STEP 3 -->
+<!-- STEP 2 — ACCOUNT 360 + ASSETS -->
 <section class="alt">
   <div class="wrap">
-    <div class="step" id="s3">
-      <div class="step-h"><div class="step-num">3</div><div><h3>A real ticketing system for support</h3><div class="sh-sub">Cases tab → the ticket queue</div></div></div>
-      <img class="shot" src="screenshots/cases.png" alt="Cases queue showing six NG911 support tickets: trunk failover, ALI data drops, radio gateway backup failures">
+    <div class="step" id="s2">
+      <div class="step-h"><div class="step-num">2</div><div><h3>One customer, one record — the account 360</h3><div class="sh-sub">Accounts → a dispatch authority → Related</div></div></div>
+      <img class="shot" src="screenshots/account-360.png" alt="Kent County Central Dispatch Authority account showing contacts, opportunities and cases in one place">
+      <img class="shot" src="screenshots/kent-assets.png" alt="Installed systems on the Kent County account: NG911 Call Handling Console and ALI Database Interface with install dates and status">
       <div class="step-cols">
         <div class="col">
           <h4>Click path</h4>
-          <div class="clickpath">Cases → the <b>ticket queue</b> → open <b>00001038</b> (NG 911 ALI data)</div>
+          <div class="clickpath">Accounts → <b>Kent County Central Dispatch Authority</b> → <b>Related</b><br>→ Contacts · Opportunities · Cases · <b>Assets</b></div>
           <h4 style="margin-top:16px">Say this</h4>
-          <p class="say">"You asked for a ticketing system — this is it. Every support issue a dispatch center reports is a Case: logged, prioritised, owned, and tracked to resolution — and it's tied to the same customer record your sales team works from."</p>
+          <p class="say">"Everything you know about Kent County — split across Excel, a network folder and someone's inbox today — is one record. Every contact, every deal, every open ticket, and now the systems you've installed for them, with install dates and which are nearing end-of-life."</p>
         </div>
         <div class="col">
           <h4>Point out</h4>
           <ul class="points">
-            <li><b>The queue</b> — trunk failover, ALI data drops, recording timestamps, radio-gateway backup failures.</li>
-            <li><b>Priority &amp; status</b> — high-priority 911 issues surface first; every ticket has an owner.</li>
-            <li><b>Linked to the account</b> — support history and sales history live on the same customer.</li>
-            <li>This is the Service Cloud half — the "one system" that also covers support.</li>
+            <li><b>Contacts</b> — the operations manager and executive director, with direct lines.</li>
+            <li><b>Opportunities</b> — the active $240K dispatch-position expansion.</li>
+            <li><b>Cases</b> — their open support tickets, alongside the sales relationship.</li>
+            <li><b>Assets (installed systems)</b> — NG911 Console + ALI interface with install dates; the "what's deployed &amp; when's it due" view you asked for.</li>
           </ul>
         </div>
       </div>
@@ -214,24 +234,26 @@
   </div>
 </section>
 
-<!-- STEP 4 -->
+<!-- STEP 3 — PIPELINE + ACTIVITY -->
 <section>
   <div class="wrap">
-    <div class="step" id="s4">
-      <div class="step-h"><div class="step-num">4</div><div><h3>Where this goes — your tailored build</h3><div class="sh-sub">The roadmap beyond the demo</div></div></div>
+    <div class="step" id="s3">
+      <div class="step-h"><div class="step-num">3</div><div><h3>Pipeline &amp; activity — deals you can actually see</h3><div class="sh-sub">Opportunities → a deal → path &amp; activity timeline</div></div></div>
+      <img class="shot" src="screenshots/kent-opportunity.png" alt="Kent County Dispatch Position Expansion opportunity on the sales path with a seeded 'sent proposal' activity">
       <div class="step-cols">
         <div class="col">
-          <h4>Say this</h4>
-          <p class="say">"What you're seeing is the platform with your data in it. The next step is tailoring it to ModUCom — the fields, automation and dashboards specific to public-safety dispatch — plus the marketing-ROI tracking and proactive-upgrade outreach you called out as goals."</p>
+          <h4>Click path</h4>
+          <div class="clickpath">Opportunities → <b>Kent County – Dispatch Position Expansion</b><br>→ the pipeline path → the <b>Activity</b> timeline</div>
+          <h4 style="margin-top:16px">Say this</h4>
+          <p class="say">"Every deal sits on a pipeline — prospect through closed-won — so the whole team always knows where it stands. And right on the record is the history: what was discussed, when, and the next follow-up that's already scheduled."</p>
         </div>
         <div class="col">
-          <h4>Where SaaScend takes it next</h4>
+          <h4>Point out</h4>
           <ul class="points">
-            <li><b>Tailored fields &amp; pipeline</b> — dispatch-specific deal fields, a stage path fit to your sales cycle.</li>
-            <li><b>Leadership dashboard</b> — pipeline, forecast, case volume &amp; SLA in one view.</li>
-            <li><b>Proactive upgrade outreach</b> — flag accounts due for expansion / hardware refresh.</li>
-            <li><b>Campaign ROI</b> — track return on mailers &amp; trade shows.</li>
-            <li><b>Automation</b> — follow-up tasks, case routing, and role-based access for your sales-techs.</li>
+            <li><b>Pipeline path</b> — a visual stage-by-stage view; ~$611K open across 6 deals.</li>
+            <li><b>Activity timeline</b> — the "Sent proposal" call logged, plus upcoming follow-ups (e.g. "Follow up on board approval").</li>
+            <li><b>Centralised history</b> — the pain you named: who contacted the customer, what was said, and when to follow up — all here.</li>
+            <li><b>Next Step</b> reads as a neutral, factual step — no invented pain.</li>
           </ul>
         </div>
       </div>
@@ -239,7 +261,108 @@
   </div>
 </section>
 
-<!-- Reference -->
+<!-- STEP 4 — SERVICE / CASES + SLA -->
+<section class="alt">
+  <div class="wrap">
+    <div class="step" id="s4">
+      <div class="step-h"><div class="step-num">4</div><div><h3>Service — the ticket queue &amp; the 911 SLA case</h3><div class="sh-sub">Cases → Open Cases → 00001038</div></div></div>
+      <img class="shot" src="screenshots/open-cases-listview.png" alt="Open Cases list view with Priority and Account Name columns">
+      <img class="shot" src="screenshots/case-milestones.png" alt="Case 00001038 milestones: First Response and Resolution Time with live time-remaining countdowns, not violated">
+      <div class="step-cols">
+        <div class="col">
+          <h4>Click path</h4>
+          <div class="clickpath">Cases → list view <b>Open Cases</b> (Priority + Account)<br>→ open <b>00001038</b> (NG 911 ALI data)<br>→ Contact: Dana Whitfield · Related → <b>Case Milestones</b></div>
+          <h4 style="margin-top:16px">Say this</h4>
+          <p class="say">"This is your ticketing system. The Open Cases view shows every live issue by priority and customer. Open the 911 ALI case and you see the whole story — the contact who reported it, the troubleshooting you logged, and an SLA clock counting down on First Response and Resolution."</p>
+        </div>
+        <div class="col">
+          <h4>Point out</h4>
+          <ul class="points">
+            <li><b>Open Cases</b> list — Priority + Account Name up front, open cases only.</li>
+            <li><b>Contact + history</b> on 00001038 — Dana Whitfield, a completed "ALI diagnostic" activity, and an open follow-up.</li>
+            <li><b>SLA milestones</b> — First Response &amp; Resolution show a live time-remaining countdown, no longer violated.</li>
+            <li><b>Entitlement</b> — "ModUCom Premium 911 Support" drives the SLA — the service-level story.</li>
+          </ul>
+          <p class="note" style="margin-top:12px"><b>SLA reset note:</b> the countdown is time-relative. If you demo more than a few hours from now and the clock has lapsed, edit the case's <code>SLA Policy Start Time</code> (or ask SaaScend to reset it) so it shows a fresh countdown.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 5 — SERVICE TO SALES HANDOFF -->
+<section>
+  <div class="wrap">
+    <div class="step" id="s5">
+      <div class="step-h"><div class="step-num">5</div><div><h3>Service → Sales — turning an upgrade into a deal</h3><div class="sh-sub">The handoff click path (manual today)</div></div></div>
+      <div class="step-cols">
+        <div class="col">
+          <h4>Click path</h4>
+          <div class="clickpath">Open a case where the fix is a hardware refresh<br>→ open its <b>Account</b> (e.g. Washtenaw / Kent County)<br>→ Related → <b>Opportunities → New</b><br>→ log the upgrade deal, linked to the same customer</div>
+          <h4 style="margin-top:16px">Say this</h4>
+          <p class="say">"When support finds a customer needs a hardware refresh, that's a sales opportunity. Today it never reaches Travis. Here, from the case you jump to the account and open a new Opportunity in two clicks — and it's tied to the same customer and its installed systems, so nothing falls through."</p>
+        </div>
+        <div class="col">
+          <h4>Point out</h4>
+          <ul class="points">
+            <li>Case 00001038's description already captures this scenario — a console NIC at end-of-life.</li>
+            <li>The <b>Assets</b> list (Step 2) shows which systems are <b>Obsolete</b> — your proactive-upgrade targets.</li>
+            <li>Today the handoff is a <b>manual click path</b> (above) — clean and demoable.</li>
+            <li><b>Next phase:</b> a flow that auto-creates the upgrade Opportunity when a case is flagged for escalation (see Automations).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 6 — LEADS + PATH -->
+<section class="alt">
+  <div class="wrap">
+    <div class="step" id="s6">
+      <div class="step-h"><div class="step-num">6</div><div><h3>Leads — guided qualification</h3><div class="sh-sub">Leads → a lead → the ModUCom Lead Path</div></div></div>
+      <img class="shot" src="screenshots/lead-path.png" alt="Lead record on the ModUCom Lead Path highlighting the current stage">
+      <div class="step-cols">
+        <div class="col">
+          <h4>Click path</h4>
+          <div class="clickpath">Leads → <b>Anders Holmquist (Marquette County 911)</b><br>→ the path across the top → expand for <b>Guidance for Success</b> + key fields</div>
+          <h4 style="margin-top:16px">Say this</h4>
+          <p class="say">"Your team wears multiple hats, so the process coaches them. Each stage of the lead path spells out what 'good' looks like and the handful of fields that matter — so a sales-tech qualifying a new dispatch agency knows exactly what to do next."</p>
+        </div>
+        <div class="col">
+          <h4>Point out</h4>
+          <ul class="points">
+            <li><b>Guided path</b> — Open → Contacted → (Qualified/Convert) → Unqualified.</li>
+            <li><b>Guidance for Success</b> — plain-language coaching per stage.</li>
+            <li><b>Key fields</b> surfaced per stage — the few fields to capture before moving on.</li>
+            <li>Leads convert into Account + Contact + Opportunity, carrying activity history over.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATIONS -->
+<section>
+  <div class="wrap">
+    <p class="kicker">Straight answer</p>
+    <h2 class="title">The six automations — live vs. roadmap</h2>
+    <p class="lead">The enablement deck listed six automations. Here's exactly what's running in the demo org today versus what's a next-phase build — so you can demo the live ones and speak to the rest as roadmap without overpromising.</p>
+    <table style="margin-top:16px">
+      <tr><th style="width:38%">Automation (from the deck)</th><th style="width:16%">Status</th><th>How to handle it in the demo</th></tr>
+      <tr><td>Auto-link a support case to its account</td><td><span class="badge b-live">Live</span></td><td>Cases are already tied to their account (standard behaviour) — visible on every case and the account 360.</td></tr>
+      <tr><td>Escalate / govern critical tickets on an SLA</td><td><span class="badge b-live">Live</span></td><td>Entitlements + First-Response &amp; Resolution milestones on the 911 case (Step 4). This is the real SLA engine.</td></tr>
+      <tr><td>Generate a sales opportunity from a service escalation</td><td><span class="badge b-road">Roadmap</span></td><td>Demo the <b>manual</b> handoff click path (Step 5). Describe the auto-create flow as next-phase.</td></tr>
+      <tr><td>Reminder for proactive customer upgrade outreach</td><td><span class="badge b-road">Roadmap</span></td><td>Show the <b>Obsolete</b> assets + the seeded follow-up tasks as the manual version; automation is next-phase.</td></tr>
+      <tr><td>Track marketing-source ROI monthly</td><td><span class="badge b-road">Roadmap</span></td><td>No campaign data in the demo — speak to it as a goal, don't click into it.</td></tr>
+      <tr><td>Update account "last touch" on interaction</td><td><span class="badge b-road">Roadmap</span></td><td>The native <b>activity timeline</b> already shows last touch; a dedicated field/flag is next-phase.</td></tr>
+    </table>
+    <p class="note" style="margin-top:16px">Two of the six run live today (case-to-account linking and the SLA milestone engine). The other four are next-phase declarative builds — demo the manual equivalents shown above and position the automation as the tailored engagement.</p>
+  </div>
+</section>
+
+<!-- REFERENCE -->
 <section class="alt">
   <div class="wrap">
     <p class="kicker">Reference</p>
@@ -247,17 +370,20 @@
     <table style="margin-top:16px">
       <tr><th>Area</th><th>Details</th></tr>
       <tr><td><b>Accounts</b></td><td>6 public-safety customers — county dispatch authorities, a fire authority, a regional comms group</td></tr>
-      <tr><td><b>Sales pipeline</b></td><td>6 opportunities (~$611K open) from Prospecting → Closed Won — dispatch expansion, NG911 hardware, console replacement, renewals</td></tr>
-      <tr><td><b>Service / ticketing</b></td><td>6 Cases — 911 trunk failover, ALI data drops, recording timestamps, radio-gateway backup failures</td></tr>
-      <tr><td><b>Contacts &amp; leads</b></td><td>8 contacts across accounts · 4 leads</td></tr>
+      <tr><td><b>Sales pipeline</b></td><td>6 opportunities (~$611K open) — dispatch expansion, NG911 hardware, console replacement, renewals</td></tr>
+      <tr><td><b>Service / ticketing</b></td><td>6 Cases; the 911 ALI case (00001038) has a contact, entitlement, SLA milestones &amp; troubleshooting history</td></tr>
+      <tr><td><b>Installed systems</b></td><td>7 Assets across accounts — install dates, price, and <b>Obsolete</b> flags for end-of-life units</td></tr>
+      <tr><td><b>Activity</b></td><td>5 completed activities + 3 upcoming follow-ups across leads, account, opportunity &amp; the 911 case</td></tr>
+      <tr><td><b>Leads</b></td><td>4 leads on the <b>ModUCom Lead Path</b> with per-stage guidance &amp; key fields</td></tr>
+      <tr><td><b>Reporting</b></td><td>6 reports in <b>ModUCom Operations</b> → the <b>ModUCom Operations Hub</b> dashboard</td></tr>
     </table>
-    <p class="note" style="margin-top:16px">This is a Sales + Service platform demo on your real customer data. The tailored ModUCom build — custom fields, dashboards, automation, marketing-ROI &amp; upgrade tracking — is the next-phase engagement.</p>
+    <p class="note" style="margin-top:16px">Built on Salesforce's standard objects (Opportunities, Cases, Assets, Leads, Entitlements) with your real customer data — nothing fictional. The remaining automation (Service→Sales auto-create, upgrade reminders, marketing ROI, last-touch) is the tailored next-phase engagement.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div><b>ModUCom — Sales + Service Cloud Demo Guide</b><br>Prepared by SaaScend · Demo org connect-momentum-7281</div>
+    <div><b>ModUCom — Sales + Service Cloud Demo Guide</b><br>Prepared by SaaScend · Demo org connect-momentum-7281 · Updated after Rose's walkthrough feedback</div>
   </div>
 </footer>
 
